@@ -1,0 +1,43 @@
+spring:
+  rabbitmq:
+    host: yourIp
+    port: 5672
+    password: yourPwd
+    username: yourUser
+    virtual-host: /
+    # 开启确认模式
+    publisher-confirm-type: correlated
+    # 开启回退模式
+    publisher-returns: true
+    # 开启手动签收
+    listener:
+      simple:
+        acknowledge-mode: manual
+        # 限流机制必须开启手动签收
+        # 消费端最多拉取5条消息消费，签收后不满5条才会继续拉取消息。
+        #prefetch: 5
+  redis:
+    host: yourIp
+    port: 6379
+    password: yourPwd
+    timeout: 1800000
+    database: 3
+  datasource:
+    url: jdbc:mysql://yourIp:3306/jancy?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useAffectedRows=true&removeAbandoned=true&zeroDateTimeBehavior=convertToNull
+    username: yourUser
+    password: yourPwd
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+  tomcat:
+    uri-encoding: UTF-8
+rocketmq:
+  producer:
+    group: jancyProducer
+  consumer:
+    group: jancyConsumer
+  name-server: yourIp:9876
